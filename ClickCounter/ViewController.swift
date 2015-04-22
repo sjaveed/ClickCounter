@@ -41,8 +41,8 @@ class ViewController: UIViewController {
         incrementButton.frame = CGRectMake(150, 250, 60, 60)
         incrementButton.setTitle("Increment", forState: .Normal)
         incrementButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        incrementButton.addTarget(self, action: "incrementCounter", forControlEvents: UIControlEvents.TouchUpInside)
-        incrementButton.addTarget(self, action: "showIncrementButtonFeedback", forControlEvents: UIControlEvents.TouchDown)
+        incrementButton.addTarget(self, action: "updateLabels", forControlEvents: UIControlEvents.TouchUpInside)
+        incrementButton.addTarget(self, action: "incrementCounter", forControlEvents: UIControlEvents.TouchDown)
 
         view.addSubview(incrementButton)
 
@@ -52,33 +52,25 @@ class ViewController: UIViewController {
         decrementButton.frame = CGRectMake(210, 250, 60, 60)
         decrementButton.setTitle("Decrement", forState: .Normal)
         decrementButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        decrementButton.addTarget(self, action: "decrementCounter", forControlEvents: UIControlEvents.TouchUpInside)
-        decrementButton.addTarget(self, action: "showDecrementButtonFeedback", forControlEvents: UIControlEvents.TouchDown)
+        decrementButton.addTarget(self, action: "updateLabels", forControlEvents: UIControlEvents.TouchUpInside)
+        decrementButton.addTarget(self, action: "incrementCounter", forControlEvents: UIControlEvents.TouchDown)
         
         self.view.addSubview(decrementButton)
     }
 
-    func showIncrementButtonFeedback() {
-        showButtonFeedback(incrementButton, colorToSet: UIColor.greenColor())
-    }
-    
     func incrementCounter() {
+        showButtonFeedback(incrementButton, colorToSet: UIColor.greenColor())
         self.count++
-        updateLabels()
-        resetButtonFeedback(incrementButton)
-    }
-    
-    func showDecrementButtonFeedback() {
-        showButtonFeedback(decrementButton, colorToSet: UIColor.redColor())
     }
     
     func decrementCounter() {
+        showButtonFeedback(decrementButton, colorToSet: UIColor.redColor())
         self.count--
-        updateLabels()
-        resetButtonFeedback(decrementButton)
     }
     
-    private func updateLabels() {
+    func updateLabels() {
+        resetButtonFeedback(incrementButton)
+
         self.leftLabel.text = "\(self.count)"
         self.rightLabel.text = "\(self.count)"
     }
