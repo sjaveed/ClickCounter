@@ -33,22 +33,40 @@ class ViewController: UIViewController {
         
         self.view.addSubview(self.rightLabel)
         
-        // Button whose clicks to count
+        // Button that increments counter
         
-        var button = UIButton()
-        button.frame = CGRectMake(150, 250, 60, 60)
-        button.setTitle("Click", forState: .Normal)
-        button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        button.addTarget(self, action: "incrementCounter", forControlEvents: UIControlEvents.TouchUpInside)
+        var incrementButton = UIButton()
+        incrementButton.frame = CGRectMake(150, 250, 60, 60)
+        incrementButton.setTitle("Increment", forState: .Normal)
+        incrementButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        incrementButton.addTarget(self, action: "incrementCounter", forControlEvents: UIControlEvents.TouchUpInside)
 
-        self.view.addSubview(button)
+        self.view.addSubview(incrementButton)
+
+        // Button that decrements counter
+        
+        var decrementButton = UIButton()
+        decrementButton.frame = CGRectMake(210, 250, 60, 60)
+        decrementButton.setTitle("Decrement", forState: .Normal)
+        decrementButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        decrementButton.addTarget(self, action: "decrementCounter", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        self.view.addSubview(decrementButton)
     }
     
     func incrementCounter() {
         self.count++
+        updateLabels()
+    }
+    
+    func decrementCounter() {
+        self.count--
+        updateLabels()
+    }
+
+    private func updateLabels() {
         self.leftLabel.text = "\(self.count)"
         self.rightLabel.text = "\(self.count)"
     }
-
 }
 
