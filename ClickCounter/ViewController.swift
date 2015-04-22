@@ -13,60 +13,82 @@ class ViewController: UIViewController {
     var count = 0
     var leftLabel: UILabel!
     var rightLabel: UILabel!
+    var incrementButton: UIButton!
+    var decrementButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Left Label to display click count
 
-        self.leftLabel = UILabel()
-        self.leftLabel.frame = CGRectMake(150, 150, 60, 60)
-        self.leftLabel.text = "0"
+        leftLabel = UILabel()
+        leftLabel.frame = CGRectMake(150, 150, 60, 60)
+        leftLabel.text = "0"
         
-        self.view.addSubview(self.leftLabel)
+        view.addSubview(self.leftLabel)
         
         // Right Label to display the same click count
         
-        self.rightLabel = UILabel()
-        self.rightLabel.frame = CGRectMake(210, 150, 60, 60)
-        self.rightLabel.text = "0"
+        rightLabel = UILabel()
+        rightLabel.frame = CGRectMake(210, 150, 60, 60)
+        rightLabel.text = "0"
         
-        self.view.addSubview(self.rightLabel)
+        view.addSubview(self.rightLabel)
         
         // Button that increments counter
         
-        var incrementButton = UIButton()
+        incrementButton = UIButton()
         incrementButton.frame = CGRectMake(150, 250, 60, 60)
         incrementButton.setTitle("Increment", forState: .Normal)
         incrementButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
         incrementButton.addTarget(self, action: "incrementCounter", forControlEvents: UIControlEvents.TouchUpInside)
+        incrementButton.addTarget(self, action: "showIncrementButtonFeedback", forControlEvents: UIControlEvents.TouchDown)
 
-        self.view.addSubview(incrementButton)
+        view.addSubview(incrementButton)
 
         // Button that decrements counter
         
-        var decrementButton = UIButton()
+        decrementButton = UIButton()
         decrementButton.frame = CGRectMake(210, 250, 60, 60)
         decrementButton.setTitle("Decrement", forState: .Normal)
         decrementButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
         decrementButton.addTarget(self, action: "decrementCounter", forControlEvents: UIControlEvents.TouchUpInside)
+        decrementButton.addTarget(self, action: "showDecrementButtonFeedback", forControlEvents: UIControlEvents.TouchDown)
         
         self.view.addSubview(decrementButton)
+    }
+
+    func showIncrementButtonFeedback() {
+        showButtonFeedback(incrementButton, colorToSet: UIColor.greenColor())
     }
     
     func incrementCounter() {
         self.count++
         updateLabels()
+        resetButtonFeedback(incrementButton)
+    }
+    
+    func showDecrementButtonFeedback() {
+        showButtonFeedback(decrementButton, colorToSet: UIColor.redColor())
     }
     
     func decrementCounter() {
         self.count--
         updateLabels()
+        resetButtonFeedback(decrementButton)
     }
-
+    
     private func updateLabels() {
         self.leftLabel.text = "\(self.count)"
         self.rightLabel.text = "\(self.count)"
+    }
+    
+    private func resetButtonFeedback(button: UIButton) {
+        showButtonFeedback(button, colorToSet: UIColor.whiteColor())
+    }
+    
+    private func showButtonFeedback(button: UIButton, colorToSet: UIColor) {
+        button.backgroundColor = colorToSet
     }
 }
 
